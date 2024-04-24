@@ -25,6 +25,10 @@ class MainActivity : ComponentActivity() {
             statusBarStyle = SystemBarStyle.light(
                 android.graphics.Color.TRANSPARENT,
                 android.graphics.Color.TRANSPARENT
+            ),
+            navigationBarStyle = SystemBarStyle.light(
+                android.graphics.Color.TRANSPARENT,
+                android.graphics.Color.TRANSPARENT
             )
         )
         WindowCompat.setDecorFitsSystemWindows(window, false)
