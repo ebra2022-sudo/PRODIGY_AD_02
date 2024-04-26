@@ -33,12 +33,30 @@ class TodoRepository(private val databaseOperations: DataBaseOperations) {
         }
     }
 
-    fun searchById(id: Int) {
-        coroutineScope.launch(Dispatchers.Main) {
-            searchResults.value = asyncFind(id).await()
+
+    fun updateEntityField(entityId: Int, title: String, description: String, duration: Int) {
+        coroutineScope.launch(Dispatchers.IO) {
+            // Retrieve the entity from the database
+            var entity = databaseOperations.selectToDoById(entityId).first()
+
+            // Modify the field value of the retrieved entity
+            entity = entity.copy(title = title,
+                description = description,
+                duration = duration)
+
+            // Update the entity in the database with the modified field value
+            databaseOperations.update(entity)
         }
+        // SAMPLE OF THE GIVEN VALUE OF THE CODE OF THE SAMPLE OF THE GV
     }
 
+    fun onCheckTodo(entityId: Int) {
+        coroutineScope.launch(Dispatchers.IO) {
+            var entity = databaseOperations.selectToDoById(entityId).first()
+            entity = entity.copy(isDone = !entity.isDone)
+            databaseOperations.update(entity)
+        }
+    }
     // generic function for search async
     private fun <T> asyncFind(key: T): Deferred<List<ToDoEntry>?> =
         coroutineScope.async(Dispatchers.IO) {

@@ -15,7 +15,6 @@ import androidx.room.Room
 abstract class TodoRoomDatabase: RoomDatabase()
 {
     abstract fun  databaseOperations(): DataBaseOperations
-
     // we want singleton object(one instance of room database)
     // so we have to check  whether it is already created  or not.
     companion object {

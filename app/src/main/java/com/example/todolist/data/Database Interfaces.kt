@@ -3,11 +3,10 @@ package com.example.todolist.data
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
-
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-
+import androidx.room.Update
 
 
 // Data Access Objects are the main classes where you define your database interactions(Interfaces).
@@ -28,6 +27,9 @@ interface DataBaseOperations {
 
     @Delete
     fun deleteToDo(toDo: ToDoEntry)
+
+    @Update
+    fun update(toDo: ToDoEntry)
 
     // search by id
     @Query("SELECT * FROM Todos WHERE id = :id")
